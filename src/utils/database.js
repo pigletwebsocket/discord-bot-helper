@@ -1,178 +1,114 @@
-// PostgreSQL database for the gambling bot
-const db = require('./db');
-const config = require('../../config');
+// This file is a wrapper around the PostgreSQL database operations
+// It provides a simpler interface for the bot commands to use
 
-// Get user data, create if not exists
+const db = require('./db');
+
+// User management
 async function getUser(userId, username) {
   try {
+    // Try to get user, create if doesn't exist
     let user = await db.getUserById(userId);
     
     if (!user) {
-      // Create new user
-      user = await db.createUser(userId, username, config.economy.startingCash);
+      console.log(`Creating new user: ${username} (${userId})`);
+      user = await db.createUser(userId, username);
     }
     
-    // Get user stats
-    const stats = await db.getUserStats(userId);
-    const gameStats = await db.getAllGameStats(userId);
-    const cooldowns = await db.getCooldowns(userId);
-    
-    // Format the user object to match the expected structure
-    return {
-      id: user.id,
-      username: user.username,
-      cash: user.cash,
-      level: user.level,
-      stats: {
-        gamesPlayed: stats?.games_played || 0,
-        gamesWon: stats?.games_won || 0,
-        gamesLost: stats?.games_lost || 0,
-        totalBet: stats?.total_bet || 0,
-        totalWon: stats?.total_won || 0,
-        totalLost: stats?.total_lost || 0,
-        ...gameStats
-      },
-      cooldowns: cooldowns || {
-        daily: 0,
-        coinflip: 0,
-        blackjack: 0,
-        diceroll: 0,
-        slots: 0,
-        roulette: 0
-      }
-    };
-  } catch (error) {
-    console.error('Error in getUser:', error);
-    
-    // Fallback to a default user if database fails
-    return {
-      id: userId,
-      username: username,
-      cash: config.economy.startingCash,
-      level: 0,
-      stats: {
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesLost: 0,
-        totalBet: 0,
-        totalWon: 0,
-        totalLost: 0,
-        coinflip: { played: 0, won: 0, lost: 0, bet: 0, won_amount: 0, lost_amount: 0 },
-        blackjack: { played: 0, won: 0, lost: 0, bet: 0, won_amount: 0, lost_amount: 0 },
-        diceroll: { played: 0, won: 0, lost: 0, bet: 0, won_amount: 0, lost_amount: 0 },
-        slots: { played: 0, won: 0, lost: 0, bet: 0, won_amount: 0, lost_amount: 0 },
-        roulette: { played: 0, won: 0, lost: 0, bet: 0, won_amount: 0, lost_amount: 0 }
-      },
-      cooldowns: {
-        daily: 0,
-        coinflip: 0,
-        blackjack: 0,
-        diceroll: 0,
-        slots: 0,
-        roulette: 0
-      }
-    };
+    return user;
+  } catch (err) {
+    console.error('Error in getUser:', err);
+    throw err;
   }
 }
 
-// Update user data
 async function updateUser(userId, updateData) {
   try {
-    const updatedUser = await db.updateUser(userId, updateData);
-    return await getUser(userId);
-  } catch (error) {
-    console.error('Error in updateUser:', error);
-    throw new Error('User not found');
+    return await db.updateUser(userId, updateData);
+  } catch (err) {
+    console.error('Error in updateUser:', err);
+    throw err;
   }
 }
 
-// Add cash to user
+// Economy functions
 async function addCash(userId, amount) {
   try {
-    const user = await getUser(userId);
-    const newCash = user.cash + amount;
+    if (amount <= 0) return false;
     
-    await db.updateUser(userId, { cash: newCash });
-    user.cash = newCash;
+    const user = await db.getUserById(userId);
+    if (!user) return false;
     
-    return user;
-  } catch (error) {
-    console.error('Error in addCash:', error);
-    throw error;
-  }
-}
-
-// Remove cash from user
-async function removeCash(userId, amount) {
-  try {
-    const user = await getUser(userId);
-    const newCash = Math.max(0, user.cash - amount);
-    
-    await db.updateUser(userId, { cash: newCash });
-    user.cash = newCash;
-    
-    return user;
-  } catch (error) {
-    console.error('Error in removeCash:', error);
-    throw error;
-  }
-}
-
-// Check if user has enough cash
-async function hasEnoughCash(userId, amount) {
-  try {
-    const user = await getUser(userId);
-    return user.cash >= amount;
-  } catch (error) {
-    console.error('Error in hasEnoughCash:', error);
+    const newBalance = user.cash + amount;
+    await db.updateUser(userId, { cash: newBalance });
+    return true;
+  } catch (err) {
+    console.error('Error in addCash:', err);
     return false;
   }
 }
 
-// Update user stats
+async function removeCash(userId, amount) {
+  try {
+    if (amount <= 0) return false;
+    
+    const user = await db.getUserById(userId);
+    if (!user) return false;
+    
+    if (user.cash < amount) return false;
+    
+    const newBalance = user.cash - amount;
+    await db.updateUser(userId, { cash: newBalance });
+    return true;
+  } catch (err) {
+    console.error('Error in removeCash:', err);
+    return false;
+  }
+}
+
+async function hasEnoughCash(userId, amount) {
+  try {
+    const user = await db.getUserById(userId);
+    return user && user.cash >= amount;
+  } catch (err) {
+    console.error('Error in hasEnoughCash:', err);
+    return false;
+  }
+}
+
+// Game statistics
 async function updateStats(userId, game, outcome, bet, winnings) {
   try {
-    await db.updateStats(userId, game, outcome, bet, winnings);
-    return await getUser(userId);
-  } catch (error) {
-    console.error('Error in updateStats:', error);
-    throw error;
+    return await db.updateStats(userId, game, outcome, bet, winnings);
+  } catch (err) {
+    console.error('Error in updateStats:', err);
   }
 }
 
-// Update cooldown timestamp
+// Cooldown management
 async function setCooldown(userId, command) {
   try {
-    await db.setCooldown(userId, command, Date.now());
-    return await getUser(userId);
-  } catch (error) {
-    console.error('Error in setCooldown:', error);
-    throw error;
+    const now = Date.now();
+    return await db.setCooldown(userId, command, now);
+  } catch (err) {
+    console.error('Error in setCooldown:', err);
   }
 }
 
-// Check if cooldown has expired
 async function checkCooldown(userId, command) {
   try {
-    const user = await getUser(userId);
-    const lastUsed = user.cooldowns[command] || 0;
-    const cooldownTime = config.cooldowns[command];
-    
-    const timePassed = Date.now() - lastUsed;
-    const timeRemaining = cooldownTime - timePassed;
-    
-    return {
-      onCooldown: timeRemaining > 0,
-      timeRemaining: timeRemaining > 0 ? timeRemaining : 0
-    };
-  } catch (error) {
-    console.error('Error in checkCooldown:', error);
-    return {
-      onCooldown: false,
-      timeRemaining: 0
-    };
+    return await db.getCooldowns(userId)
+      .then(cooldowns => {
+        const commandCooldown = cooldowns.find(cd => cd.command === command);
+        return commandCooldown ? commandCooldown.timestamp : null;
+      });
+  } catch (err) {
+    console.error('Error in checkCooldown:', err);
+    return null;
   }
 }
+
+// Export the database connection for direct queries
+const { db: dbConnection } = require('./db');
 
 module.exports = {
   getUser,
@@ -182,5 +118,6 @@ module.exports = {
   hasEnoughCash,
   updateStats,
   setCooldown,
-  checkCooldown
+  checkCooldown,
+  db: dbConnection
 };
