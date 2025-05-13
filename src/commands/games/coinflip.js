@@ -23,78 +23,88 @@ module.exports = {
         .setRequired(true)),
   
   async execute(interaction) {
-    // Check cooldown
-    const cooldownInfo = cooldowns.checkCommandCooldown(interaction.user.id, 'coinflip');
-    
-    if (cooldownInfo.onCooldown) {
-      return interaction.reply({
-        content: `You need to wait ${cooldownInfo.formattedTime} before flipping another coin.`,
-        ephemeral: true
-      });
+    try {
+      // Defer the reply to give us time to process
+      await interaction.deferReply();
+      
+      // Check cooldown
+      const cooldownInfo = await cooldowns.checkCommandCooldown(interaction.user.id, 'coinflip');
+      
+      if (cooldownInfo.onCooldown) {
+        return interaction.editReply({
+          content: `You need to wait ${cooldownInfo.formattedTime} before flipping another coin.`
+        });
+      }
+      
+      // Get user choice and bet
+      const userChoice = interaction.options.getString('choice').toLowerCase();
+      const betInput = interaction.options.getString('bet');
+      
+      // Get user data
+      const user = await db.getUser(interaction.user.id, interaction.user.username);
+      
+      // Validate the bet
+      const betValidation = formatter.validateBet(betInput, user.cash);
+      if (!betValidation.valid) {
+        return interaction.editReply({
+          content: betValidation.message
+        });
+      }
+      
+      const betAmount = betValidation.amount;
+      
+      // Set cooldown
+      await cooldowns.setCommandCooldown(user.id, 'coinflip');
+      
+      // Flip the coin (50/50 chance)
+      const outcomes = ['heads', 'tails'];
+      const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+      
+      // Determine if the user won
+      const isWin = userChoice === result;
+      
+      // Calculate winnings and update user data
+      let winnings = 0;
+      let updatedUser;
+      
+      if (isWin) {
+        winnings = betAmount * config.games.coinflip.winMultiplier;
+        // Add winnings (minus the original bet)
+        updatedUser = await db.addCash(user.id, winnings - betAmount);
+        await db.updateStats(user.id, 'coinflip', 'win', betAmount, winnings);
+      } else {
+        // Remove the bet amount
+        updatedUser = await db.removeCash(user.id, betAmount);
+        await db.updateStats(user.id, 'coinflip', 'loss', betAmount, 0);
+      }
+      
+      // Create game embed
+      const gameEmbed = new EmbedBuilder()
+        .setColor(isWin ? '#00ff00' : '#ff0000')
+        .setTitle('Coin Flip')
+        .setDescription(`The coin landed on **${result}**!`)
+        .addFields(
+          { name: 'Your Choice', value: userChoice, inline: true },
+          { name: 'Result', value: isWin ? 'You won!' : 'You lost!', inline: true },
+          { name: 'Bet', value: formatter.formatCash(betAmount), inline: true },
+          { name: isWin ? 'Winnings' : 'Loss', value: isWin ? formatter.formatCash(winnings) : formatter.formatCash(betAmount), inline: true },
+          { name: 'New Balance', value: formatter.formatCash(updatedUser.cash), inline: true }
+        )
+        .setTimestamp()
+        .setFooter({ text: 'Gamble Bot' });
+      
+      // Add coin image
+      if (result === 'heads') {
+        gameEmbed.setThumbnail('https://i.imgur.com/HAvGDQP.png'); // Heads coin image
+      } else {
+        gameEmbed.setThumbnail('https://i.imgur.com/WUvU2HV.png'); // Tails coin image
+      }
+      
+      // Send the embed
+      await interaction.editReply({ embeds: [gameEmbed] });
+    } catch (error) {
+      console.error('Error in coinflip command:', error);
+      await interaction.editReply({ content: 'There was an error playing the coinflip game. Please try again later.' });
     }
-    
-    // Get user choice and bet
-    const userChoice = interaction.options.getString('choice').toLowerCase();
-    const betInput = interaction.options.getString('bet');
-    
-    // Get user data
-    const user = db.getUser(interaction.user.id, interaction.user.username);
-    
-    // Validate the bet
-    const betValidation = formatter.validateBet(betInput, user.cash);
-    if (!betValidation.valid) {
-      return interaction.reply({
-        content: betValidation.message,
-        ephemeral: true
-      });
-    }
-    
-    const betAmount = betValidation.amount;
-    
-    // Set cooldown
-    cooldowns.setCommandCooldown(user.id, 'coinflip');
-    
-    // Flip the coin (50/50 chance)
-    const outcomes = ['heads', 'tails'];
-    const result = outcomes[Math.floor(Math.random() * outcomes.length)];
-    
-    // Determine if the user won
-    const isWin = userChoice === result;
-    
-    // Calculate winnings and update user data
-    let winnings = 0;
-    if (isWin) {
-      winnings = betAmount * config.games.coinflip.winMultiplier;
-      db.addCash(user.id, winnings - betAmount); // Add winnings (minus the original bet)
-      db.updateStats(user.id, 'coinflip', 'win', betAmount, winnings);
-    } else {
-      db.removeCash(user.id, betAmount); // Remove the bet amount
-      db.updateStats(user.id, 'coinflip', 'loss', betAmount, 0);
-    }
-    
-    // Create game embed
-    const gameEmbed = new EmbedBuilder()
-      .setColor(isWin ? '#00ff00' : '#ff0000')
-      .setTitle('Coin Flip')
-      .setDescription(`The coin landed on **${result}**!`)
-      .addFields(
-        { name: 'Your Choice', value: userChoice, inline: true },
-        { name: 'Result', value: isWin ? 'You won!' : 'You lost!', inline: true },
-        { name: 'Bet', value: formatter.formatCash(betAmount), inline: true },
-        { name: isWin ? 'Winnings' : 'Loss', value: isWin ? formatter.formatCash(winnings) : formatter.formatCash(betAmount), inline: true },
-        { name: 'New Balance', value: formatter.formatCash(user.cash), inline: true }
-      )
-      .setTimestamp()
-      .setFooter({ text: 'Gamble Bot' });
-    
-    // Add coin image
-    if (result === 'heads') {
-      gameEmbed.setThumbnail('https://i.imgur.com/HAvGDQP.png'); // Heads coin image
-    } else {
-      gameEmbed.setThumbnail('https://i.imgur.com/WUvU2HV.png'); // Tails coin image
-    }
-    
-    // Send the embed
-    await interaction.reply({ embeds: [gameEmbed] });
   }
 };

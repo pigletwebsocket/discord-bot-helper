@@ -1,0 +1,386 @@
+Rocket Gambling Bot, @Rocket Gambling Bot, rename to Discord Gambling Bot
+
+player
+/boosts show
+Help Text
+View or activate your boosts!
+
+All boosts stacks and using more than one of a boost will add to the duration or uses (i.e. you won't lose anything by using multiple boosts).
+
+/boosts use boost amount?
+Options
+boost STRING
+Select the boost you want to activate
+amount STRING (optional)
+Enter the number of boosts to activate
+Help Text
+View or activate your boosts!
+
+All boosts stacks and using more than one of a boost will add to the duration or uses (i.e. you won't lose anything by using multiple boosts).
+
+/buy item item_id amount
+Options
+item_id STRING
+The item to buy
+amount STRING
+The amount to buy - use 'a' to buy all
+Help Text
+Buy items from the shop(s) in the bot
+
+/buy unit unit_id amount
+Options
+unit_id STRING
+The unit to buy
+amount STRING
+The amount to buy - use 'a' to buy all
+Help Text
+Buy items from the shop(s) in the bot
+
+/buy loot amount
+Options
+amount STRING
+The amount to buy - use 'a' to buy all
+Help Text
+Buy items from the shop(s) in the bot
+
+/buy lotto amount
+Options
+amount STRING
+The amount to buy - use 'a' to buy all
+Help Text
+Buy items from the shop(s) in the bot
+
+/buy boost boost_id amount
+Options
+boost_id STRING
+The boost to buy
+amount STRING
+The amount to buy - use 'a' to buy all
+Help Text
+Buy items from the shop(s) in the bot
+
+/cooldowns detailed?
+Options
+detailed STRING (optional)
+Show exact expiry times for cooldowns
+Help Text
+Lists any active cooldowns you currently have, showing the relative time. Call with detailed or d to show the end time for explicitness
+
+Alternatives to slash commands
+@Rocket Gambling Bot cooldowns [detailed | d]
+@Rocket Gambling Bot cd [detailed | d]
+@Rocket Gambling Bot c [detailed | d]
+
+Examples
+@Rocket Gambling Bot cooldowns
+@Rocket Gambling Bot cooldowns detailed
+@Rocket Gambling Bot cd
+@Rocket Gambling Bot cd d
+/daily
+Help Text
+Collect your daily ration of cash.
+
+This will be a random amount between 1,000 - 5,000 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot daily 
+/gift recipient?
+Options
+recipient MENTION (optional)
+The user to receive the free gift
+Help Text
+Send up to five free gifts every 12 hours!
+
+Gifts don't cost you anything and you can't give all three gifts to the same person.
+
+Alternatives to slash commands
+@Rocket Gambling Bot gift [idOrMention]
+@Rocket Gambling Bot gifts [idOrMention]
+
+Examples
+@Rocket Gambling Bot gifts
+@Rocket Gambling Bot gift @mention
+@Rocket Gambling Bot gift 123123123123123
+/goals
+Help Text
+List your daily goals!
+
+Alternatives to slash commands
+@Rocket Gambling Bot goals 
+@Rocket Gambling Bot tasks 
+@Rocket Gambling Bot t 
+
+Examples
+@Rocket Gambling Bot goals
+/leaderboard player leaderboard global?
+Options
+leaderboard STRING
+The leaderboard to choose
+global STRING (optional)
+Whether to show global scores
+Help Text
+Show the leaderboard for a game!
+
+Call with g at the end to show global leaderboards
+
+/leaderboard game leaderboard global?
+Options
+leaderboard STRING
+The leaderboard to choose
+global STRING (optional)
+Whether to show global scores
+Help Text
+Show the leaderboard for a game!
+
+Call with g at the end to show global leaderboards
+
+/leaderboard item leaderboard global?
+Options
+leaderboard STRING
+The leaderboard to choose
+global STRING (optional)
+Whether to show global scores
+Help Text
+Show the leaderboard for a game!
+
+Call with g at the end to show global leaderboards
+
+/leaderboard mining leaderboard? global?
+Options
+leaderboard STRING (optional)
+The leaderboard to choose
+global STRING (optional)
+Whether to show global scores
+Help Text
+Show the leaderboard for a game!
+
+Call with g at the end to show global leaderboards
+
+/lookup user page?
+Options
+user MENTION
+The user to look up
+page STRING (optional)
+The sub-page to show
+Help Text
+Show the stats for a given player including cash, top scores and experience, mine information and inventory
+
+Alternatives to slash commands
+@Rocket Gambling Bot lookup <idOrMention> [score | stats | mine | inventory]
+@Rocket Gambling Bot find <idOrMention> [score | stats | mine | inventory]
+
+Examples
+@Rocket Gambling Bot lookup @Rocket
+@Rocket Gambling Bot lookup 800383254389194754
+@Rocket Gambling Bot lookup @Rocket score
+@Rocket Gambling Bot lookup @Rocket stats
+@Rocket Gambling Bot lookup @Rocket mine
+@Rocket Gambling Bot lookup @Rocket inventory
+@Rocket Gambling Bot lookup @Rocket achievements
+@Rocket Gambling Bot lookup @Rocket achievements items
+/lotto tickets_to_buy?
+Options
+tickets_to_buy STRING (optional)
+The number of tickets to buy. Use 'm' to buy max
+Help Text
+Participate in the weekly lottery!
+
+Tickets cost 1,000 and each person can buy a maximum of 1,000
+
+Draws are on Saturday at 11:00am
+
+Alternatives to slash commands
+@Rocket Gambling Bot lotto [<numTicketsToBuy>]
+@Rocket Gambling Bot lottery [<numTicketsToBuy>]
+@Rocket Gambling Bot ticket [<numTicketsToBuy>]
+@Rocket Gambling Bot tickets [<numTicketsToBuy>]
+
+Examples
+@Rocket Gambling Bot lotto
+@Rocket Gambling Bot lotto 10
+/monthly
+Help Text
+Collect your monthly ration of cash.
+
+This will be a random amount between 100,000 - 500,000 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot monthly 
+@Rocket Gambling Bot patron 
+/overtime
+Help Text
+Put in some extra time at work.
+
+This will be a random amount between 500 - 1,000 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot overtime 
+@Rocket Gambling Bot ot 
+/prestige type
+Options
+type STRING
+The type of prestige
+Help Text
+Prestige your mine to get some  and increase your prestige count to make your way up the mine prestige leaderboard!
+
+Alternatives to slash commands
+@Rocket Gambling Bot prestige 
+/profile page?
+Options
+page STRING (optional)
+The sub-page to show
+Help Text
+Show your player stats including cash, top scores and experience
+
+Alternatives to slash commands
+@Rocket Gambling Bot me [score | stats | mine]
+@Rocket Gambling Bot bal [score | stats | mine]
+@Rocket Gambling Bot balance [score | stats | mine]
+@Rocket Gambling Bot profile [score | stats | mine]
+@Rocket Gambling Bot my [score | stats | mine]
+
+Examples
+@Rocket Gambling Bot me
+@Rocket Gambling Bot my score
+@Rocket Gambling Bot my stats
+@Rocket Gambling Bot my mine
+@Rocket Gambling Bot my achievements
+@Rocket Gambling Bot my achievements items
+/sell item_id amount
+Options
+item_id STRING
+The item to sell
+amount STRING
+The amount to sell - use 'a' to sell all
+Help Text
+Sell items from the shop(s) in the bot
+
+Alternatives to slash commands
+@Rocket Gambling Bot sell <id> <amount>
+@Rocket Gambling Bot s <id> <amount>
+
+Examples
+@Rocket Gambling Bot sell 1 yoyo
+@Rocket Gambling Bot sell yoyo 1
+/send recipient amount
+Options
+recipient MENTION
+The player recieving the cash
+amount STRING
+The amount to send - use 'm' to send max
+Help Text
+Send money to a friend!
+
+Tax is charged based on the combined sales tax of both you and the player you're sending money to.
+
+Call without arguments to see your max send/receive limits and tax.
+
+Supports max as the amount which will send the smallest value from:
+
+your max send limit
+their max receive limit
+your current cash
+You will always be given a 'Send Cash' button to click and only you can send the cash
+
+Alternatives to slash commands
+@Rocket Gambling Bot send [idOrMention <amount>]
+@Rocket Gambling Bot transfer [idOrMention <amount>]
+@Rocket Gambling Bot give [idOrMention <amount>]
+
+Examples
+@Rocket Gambling Bot send
+@Rocket Gambling Bot send @mention 10000
+@Rocket Gambling Bot send 123123123123123 10000
+/shop shop_type page?
+Options
+shop_type STRING
+The type of shop to show
+page STRING (optional)
+The page to show
+Help Text
+Buy and sell items in the shop.
+
+Alternatives to slash commands
+@Rocket Gambling Bot shop [<mine | items | credits>] <page>
+@Rocket Gambling Bot s [<mine | items | credits>] <page>
+
+Examples
+@Rocket Gambling Bot shop
+@Rocket Gambling Bot shop mine
+/spin
+Help Text
+Spin the wheel of fortune to win a random item!
+
+You can spin the wheel every 2 hours and the odds of finding a random item are twice that of randomly finding items finding games!
+
+Alternatives to slash commands
+@Rocket Gambling Bot spin 
+@Rocket Gambling Bot randomItem 
+/vote detailed?
+Options
+detailed STRING (optional)
+Show exact expiry times for cooldowns
+Help Text
+Show the the site voting instructions and your current cooldowns for voting.
+
+The cooldowns are purely informational - if the site lets you vote, you'll get the reward.
+
+You can vote every 12 hours on all three links to get three rewards!
+
+Vote rewards
+
+Cash: 100,000 * player level
+ 10 * player level
+ 5 * player level
+ 2 * player level
+E.g. for a player that is level 5, they get 500,000 %{cashmoji}, 50  and so on.
+
+Vote Streak
+Every 7 days of voting (21 votes) your reward multiplier is tripled (for one vote).
+
+Every 21 votes increases the base reward multiplier by 1.
+
+So on vote 42, you'd get x6 reward. On vote 43, you'd get x2 vote reward.
+
+Weekend Voting
+Voting for the bot on 'the weekend' on top.gg counts as 2 votes so your reward then will be doubled. This combines with the vote streak.
+
+top.gg calculates what 'the weekend' as Friday - Sunday in their timezone
+
+Alternatives to slash commands
+@Rocket Gambling Bot vote [detailed | d]
+@Rocket Gambling Bot v [detailed | d]
+
+Examples
+@Rocket Gambling Bot vote
+@Rocket Gambling Bot vote detailed
+@Rocket Gambling Bot v
+@Rocket Gambling Bot v d
+/weekly
+Help Text
+Collect your weekly ration of cash.
+
+This will be a random amount between 5,000 - 10,000 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot weekly 
+@Rocket Gambling Bot supporter 
+/work
+Help Text
+Collect your hard earned wages at work.
+
+This will be a random amount between 100 - 500 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot work 
+@Rocket Gambling Bot wk 
+@Rocket Gambling Bot w 
+/yearly
+Help Text
+Collect your yearly ration of cash.
+
+This will be a random amount between 10,000,000 - 50,000,000 (multiplied by your cash multiplier if you donated)
+
+Alternatives to slash commands
+@Rocket Gambling Bot yearly 
+@Rocket Gambling Bot godlike 

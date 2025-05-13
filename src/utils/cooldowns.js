@@ -4,8 +4,8 @@ const db = require('./database');
 const config = require('../../config');
 
 // Check command cooldown
-function checkCommandCooldown(userId, commandName) {
-  const cooldownInfo = db.checkCooldown(userId, commandName);
+async function checkCommandCooldown(userId, commandName) {
+  const cooldownInfo = await db.checkCooldown(userId, commandName);
   
   return {
     onCooldown: cooldownInfo.onCooldown,
@@ -15,13 +15,13 @@ function checkCommandCooldown(userId, commandName) {
 }
 
 // Set command cooldown
-function setCommandCooldown(userId, commandName) {
-  return db.setCooldown(userId, commandName);
+async function setCommandCooldown(userId, commandName) {
+  return await db.setCooldown(userId, commandName);
 }
 
 // Get all cooldowns for a user
-function getUserCooldowns(userId) {
-  const user = db.getUser(userId);
+async function getUserCooldowns(userId) {
+  const user = await db.getUser(userId);
   const cooldowns = user.cooldowns;
   const cooldownInfo = {};
   

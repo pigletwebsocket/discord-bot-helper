@@ -1,0 +1,432 @@
+Rocket Gambling Bot, @Rocket Gambling Bot, rename to Discord Gambling Bot
+games
+/blackjack bet mode?
+Options
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+mode STRING (optional)
+Toggle hard mode (default: Easy Mode)
+Help Text
+Play a game of Blackjack (aka 21) - For full rules, see https://bicyclecards.com/how-to-play/blackjack/
+
+Aces are 1 or 11, face cards are 10 and the rest use their number value.
+
+Game consists of 6 decks shuffled together (312 cards, i.e. 24 Aces in play).
+
+Blackjack = draw an ace and 10 or a face card on your first hand. Game ends immediately with an additional 50% added to the winnings.
+
+Dealer Blackjack = dealer draws an ace and 10 or face card on their first hand. Game ends immediately as a loss.
+
+Difficulty
+
+easy
+Odds: 3:2
+Your current count is shown like 5 (14) where the number in brackets is shown when you have an Ace and indicates what the value would be if you were to use it as value 11 (i.e. soft hand).
+
+hard
+Odds: 2:1
+No totals are shown, you must add the values yourself
+
+Win XP: 100
+
+Alternatives to slash commands
+@Rocket Gambling Bot blackjack <bet> [hard | h]
+@Rocket Gambling Bot bj <bet> [hard | h]
+
+Examples
+@Rocket Gambling Bot bj 1000
+@Rocket Gambling Bot bj 1k h
+/coinflip prediction bet
+Options
+prediction STRING
+Choose whether you think the coin will be heads or tails
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Flip a coin!
+
+Odds: 1:1
+Win XP: 100
+
+Alternatives to slash commands
+@Rocket Gambling Bot coinFlip <heads|tails> <bet>
+@Rocket Gambling Bot cf <heads|tails> <bet>
+
+Examples
+@Rocket Gambling Bot coinFlip heads 1k
+@Rocket Gambling Bot cf t 1k
+@Rocket Gambling Bot cf h 1k
+/connectfour
+Help Text
+Play a game of Connect 4 with a friend (or foe!!!!)
+
+Alternatives to slash commands
+@Rocket Gambling Bot connectFour 
+@Rocket Gambling Bot c4 
+@Rocket Gambling Bot connect4 
+/crash bet mode?
+Options
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+mode STRING (optional)
+Toggle hard mode (default: Easy Mode)
+Help Text
+The game starts with a x1 multiplier which goes up every few seconds.
+
+Every time it tries to jump up, there's a 10% chance it will CRASH 💥 and you'll lose your bet!
+
+Hit 🛑 before that happens and you win bet x multiplier!
+
+Hard Mode
+
+The game is the same but it doesn't tell you the multiplier or if it's crashed, you just react at some point within the 2 minute game timer and find out if you won and how much!
+
+The multiplier goes up twice as fast and the chance of crashing stays at 10%
+
+Alternatives to slash commands
+@Rocket Gambling Bot crash <bet> [hard | h]
+@Rocket Gambling Bot cr <bet> [hard | h]
+
+Examples
+@Rocket Gambling Bot crash 1k
+@Rocket Gambling Bot crash 1k hard
+@Rocket Gambling Bot cr 5k
+@Rocket Gambling Bot cr 5k h
+/findthelady bet mode?
+Options
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+mode STRING (optional)
+Toggle hard mode (default: Easy Mode)
+Help Text
+The aim of the game is simple - Find the lady  among the kings!
+
+Play easy mode with 3 cards or hard mode with 5 cards!
+
+Start the game, wait for the shuffle then pick a card - if you find the lady, you win!
+
+Odds:
+
+easy - 1:3
+hard - 1:5
+Alternatives to slash commands
+@Rocket Gambling Bot findTheLady <bet> [hard | h]
+@Rocket Gambling Bot ftl <bet> [hard | h]
+
+Examples
+@Rocket Gambling Bot findTheLady 1k
+@Rocket Gambling Bot ftl 1k
+@Rocket Gambling Bot findTheLady 1k hard
+@Rocket Gambling Bot ftl 1k h
+/gamble bet mode?
+Options
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+mode STRING (optional)
+Toggle hard mode (default: Easy Mode)
+Help Text
+For the indecisive gambler - play one of the games in the bot, chosen at random!
+
+Games will automatically pick one of the things you normally have to type (e.g. for roulette it always picks black).
+
+Alternatives to slash commands
+@Rocket Gambling Bot gamble <bet> [hard | h]
+@Rocket Gambling Bot g <bet> [hard | h]
+@Rocket Gambling Bot play <bet> [hard | h]
+
+Examples
+@Rocket Gambling Bot gamble 100
+@Rocket Gambling Bot gamble 100 hard
+@Rocket Gambling Bot g 100
+@Rocket Gambling Bot g 100 h
+/higherorlower
+Help Text
+Play a game of higher or lower. Guess the next card drawn to keep playing!
+
+Payout: 100 x Score
+XP: 10 x Score
+
+Alternatives to slash commands
+@Rocket Gambling Bot higherOrLower 
+@Rocket Gambling Bot hol 
+/poker ante bonus?
+Options
+ante STRING
+The amount to bet. Use `m` for max and `a` for all in
+bonus STRING (optional)
+The amount to bet on the bonus hand. Use `m` for max and `a` for all in
+Help Text
+Play a game of Texas Hold'em Bonus versus the dealer!
+
+Ante bet:
+Your ante bet is buy-in to see your 2 cards.
+You can fold if your hand is terrible and lose your bet.
+
+To play, you must then bet an additional 2 x your ante bet
+This will show the 3 river cards.
+
+You can then bet or check two more times as two additional cards are shown.
+
+If your best 5 card hand beats the dealers, you get a payout based on the table
+
+Example:
+
+Bet 100 ante to start
+Bet 2x ante (200) to play
+Bet 1x ante (100)
+Bet 1x ante (100)
+Win/lose (500 total)
+Bonus bet
+The bonus bet is based purely on the dealer and player hands, ignoring the river cards.
+
+If you fold, check, or lose on the ante bets, you can still win the bonus bet which pays out based on the pay table.
+
+All In
+All in bets will skip straight to the end of the game (with no chance to fold, bet or check) with a doubled payout. E.g. a royal flush on all in would pay out 10:1
+
+You cannot go all in and bet on bonus at the same time.
+
+Alternatives to slash commands
+@Rocket Gambling Bot poker <ante> [<bonus>]
+@Rocket Gambling Bot pkr <ante> [<bonus>]
+
+Examples
+@Rocket Gambling Bot pkr 100
+@Rocket Gambling Bot poker 100 100
+@Rocket Gambling Bot poker max
+@Rocket Gambling Bot poker max max
+@Rocket Gambling Bot poker allIn
+/race racer-type prediction bet
+Options
+racer-type STRING
+The type of racer to use
+prediction NUMBER
+Which racer you think will win
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Race turtles, dogs, horses or DINOSAURS!!!
+
+Types:
+
+🐢 turtle [t]
+Odds: 3:1
+3 racers
+
+🐕 dog [d]
+Odds: 5:1
+5 racers
+
+🏇 horse [h]
+Odds: 8:1
+8 racers
+
+🦖 dinosaur [di]
+Odds: 12:1
+12 racers
+
+XP: 100
+
+Alternatives to slash commands
+@Rocket Gambling Bot race <type> <1-12> <bet>
+@Rocket Gambling Bot r <type> <1-12> <bet>
+
+Examples
+@Rocket Gambling Bot race turtle 3 100
+@Rocket Gambling Bot race dog 5 100
+@Rocket Gambling Bot race horse 8 100
+@Rocket Gambling Bot race dinosaur 12 100
+@Rocket Gambling Bot r t 3 1k
+@Rocket Gambling Bot r di 12 1k
+/roll dice-type prediction bet
+Options
+dice-type STRING
+The type of dice to roll
+prediction NUMBER
+What number will the dice land on?
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Roll a dice and bet on the result!
+
+Dice Types
+
+d4
+d6
+d8
+d10
+d12
+d20
+Payout = diceMax:1 (e.g. for d20, payout is 20:1)
+
+Alternatives to slash commands
+@Rocket Gambling Bot rollDice <diceType> <prediction> <bet>
+@Rocket Gambling Bot roll <diceType> <prediction> <bet>
+@Rocket Gambling Bot ro <diceType> <prediction> <bet>
+@Rocket Gambling Bot rd <diceType> <prediction> <bet>
+@Rocket Gambling Bot dr <diceType> <prediction> <bet>
+@Rocket Gambling Bot diceRoll <diceType> <prediction> <bet>
+@Rocket Gambling Bot dice <diceType> <prediction> <bet>
+
+Examples
+@Rocket Gambling Bot rollDice d4 3 1k
+@Rocket Gambling Bot roll d20 20 1k
+/roulette prediction bet
+Options
+prediction STRING
+What roulette bet you'd like to place (e.g. black, red, green, 0, 1-10 etc.)
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Play a game of roulette!
+
+Predictions:
+
+0
+00
+1 through 36
+red
+black
+green
+1stHalf (1-18)
+2ndHalf (19-36)
+1st12 (1-12)
+2nd12 (13-24)
+3rd12 (25-36)
+1stCol (col1)
+2ndCol (col2)
+3rdCol (col3)
+1,6,12 i.e. comma separated numbers
+1-23 i.e. ranges
+You can bet on half the numbers at a time (i.e. 1-18), any more than that and the odds are too low to pay anything out (i.e. you will always lose) so the bot prevents you doing this.
+
+The roulette table used for this game can be seen at the bottom of this message.
+
+Alternatives to slash commands
+@Rocket Gambling Bot roulette <prediction> <bet>
+@Rocket Gambling Bot rou <prediction> <bet>
+
+Examples
+@Rocket Gambling Bot roulette red 1k
+@Rocket Gambling Bot rou 0 1k
+@Rocket Gambling Bot rou 00 1k
+@Rocket Gambling Bot rou 1 1k
+@Rocket Gambling Bot rou 1,3,5 1k
+@Rocket Gambling Bot rou 1-10 1k
+/rockpaperscissors selection bet
+Options
+selection STRING
+Your choice of Rock, Paper or Scissors
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Play a game of rock paper scissors against the bot!
+
+Types:
+
+rock [r]
+paper [p]
+scissors [s]
+Odds: 3:2
+Win XP: 100
+
+Alternatives to slash commands
+@Rocket Gambling Bot rockPaperScissors <type> <bet>
+@Rocket Gambling Bot rps <type> <bet>
+
+Examples
+@Rocket Gambling Bot rockPaperScissors rock 1k
+@Rocket Gambling Bot rps r 1k
+@Rocket Gambling Bot rps s 1k
+/sevens prediction bet
+Options
+prediction STRING
+What do you think it will land on?
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Play a game of sevens!
+
+Pick low (1-6), high (8-13) or 7 and if the ball lands on your prediction, you win the payout!
+
+Predictions:
+
+7 - Payout 10:1
+low - Payout 2:1
+high - Payout 2:1
+Alternatives to slash commands
+@Rocket Gambling Bot sevens <prediction> <bet>
+@Rocket Gambling Bot sv <prediction> <bet>
+
+Examples
+@Rocket Gambling Bot sevens low 1k
+@Rocket Gambling Bot sv low 1k
+@Rocket Gambling Bot sv l 1k
+@Rocket Gambling Bot sv high 1k
+@Rocket Gambling Bot sv h 1k
+@Rocket Gambling Bot sv 7 1k
+/slots bet
+Options
+bet STRING
+The amount to bet. Use `m` for max and `a` for all in
+Help Text
+Try your luck in the slots!
+
+The best odds match will be selected so if you get 3 bells and 2 bars, the payout will be for 2 bars.
+
+Payouts:
+
+sseven.png
+x 3 = 500:1
+x 2 = 25:1
+
+sdiamond.png
+x 3 = 25:1
+x 2 = 10:1
+
+sbar.png
+x 3 = 5:1
+x 2 = 3:1
+
+sbell.png
+x 3 = 3:1
+x 2 = 2:1
+
+sshoe.png
+x 3 = 2:1
+x 2 = 1:1
+
+slemon.png
+x 3 = 1:1
+x 2 = 1:1
+
+smelon.png
+x 2 = 1:1
+x 3 = 3:4
+
+sheart.png
+x 2 = 3:4
+x 3 = 1:2
+
+scherry.png
+x 3 = 1:2
+x 2 = 1:4
+
+No match = 0
+
+Alternatives to slash commands
+@Rocket Gambling Bot slots <bet>
+@Rocket Gambling Bot sl <bet>
+@Rocket Gambling Bot slot <bet>
+
+Examples
+@Rocket Gambling Bot sl 1k
+@Rocket Gambling Bot slots 1k
+/tictactoe
+Help Text
+Play a game of tic-tac-toe with a friend (or foe!!!!)
+
+Alternatives to slash commands
+@Rocket Gambling Bot tictactoe 
+@Rocket Gambling Bot ttt 
+@Rocket Gambling Bot tictactoe 

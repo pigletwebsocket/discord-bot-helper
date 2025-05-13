@@ -106,86 +106,95 @@ module.exports = {
         .setRequired(true)),
   
   async execute(interaction) {
-    // Check cooldown
-    const cooldownInfo = cooldowns.checkCommandCooldown(interaction.user.id, 'roulette');
-    
-    if (cooldownInfo.onCooldown) {
-      return interaction.reply({
-        content: `You need to wait ${cooldownInfo.formattedTime} before playing roulette again.`,
-        ephemeral: true
-      });
+    try {
+      // Defer the reply to give us time to process
+      await interaction.deferReply();
+      
+      // Check cooldown
+      const cooldownInfo = await cooldowns.checkCommandCooldown(interaction.user.id, 'roulette');
+      
+      if (cooldownInfo.onCooldown) {
+        return interaction.editReply({
+          content: `You need to wait ${cooldownInfo.formattedTime} before playing roulette again.`
+        });
+      }
+      
+      // Get prediction and bet
+      const prediction = interaction.options.getString('prediction').toLowerCase();
+      const betInput = interaction.options.getString('bet');
+      
+      // Validate prediction
+      if (!isValidBet(prediction)) {
+        return interaction.editReply({
+          content: 'Invalid prediction. Valid bets include: red, black, odd, even, low, high, 1st, 2nd, 3rd, 1st column, 2nd column, 3rd column, or any number from 0 to 36, or 00.'
+        });
+      }
+      
+      // Get user data
+      const user = await db.getUser(interaction.user.id, interaction.user.username);
+      
+      // Validate the bet
+      const betValidation = formatter.validateBet(betInput, user.cash);
+      if (!betValidation.valid) {
+        return interaction.editReply({
+          content: betValidation.message
+        });
+      }
+      
+      const betAmount = betValidation.amount;
+      
+      // Set cooldown
+      await cooldowns.setCommandCooldown(user.id, 'roulette');
+      
+      // Spin the roulette wheel
+      const result = getRouletteNumber();
+      
+      // Determine if the user won
+      const isWin = isWinningBet(prediction, result);
+      
+      // Get bet type and payout multiplier
+      const betType = getBetType(prediction);
+      const payoutMultiplier = getPayoutMultiplier(betType);
+      
+      // Calculate winnings and update user data
+      let winnings = 0;
+      let updatedUser;
+      
+      if (isWin) {
+        winnings = betAmount * payoutMultiplier;
+        // Add winnings (minus the original bet)
+        updatedUser = await db.addCash(user.id, winnings - betAmount);
+        await db.updateStats(user.id, 'roulette', 'win', betAmount, winnings);
+      } else {
+        // Remove the bet amount
+        updatedUser = await db.removeCash(user.id, betAmount);
+        await db.updateStats(user.id, 'roulette', 'loss', betAmount, 0);
+      }
+      
+      // Create game embed
+      const resultNumber = result === '00' ? 37 : parseInt(result);
+      const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+      const resultColor = result === '0' || result === '00' ? 'Green' : (redNumbers.includes(resultNumber) ? 'Red' : 'Black');
+      
+      const gameEmbed = new EmbedBuilder()
+        .setColor(isWin ? '#00ff00' : '#ff0000')
+        .setTitle('Roulette')
+        .setDescription(`The ball landed on **${result}** (${resultColor})!`)
+        .addFields(
+          { name: 'Your Bet', value: prediction, inline: true },
+          { name: 'Result', value: isWin ? 'You won!' : 'You lost!', inline: true },
+          { name: 'Bet Amount', value: formatter.formatCash(betAmount), inline: true },
+          { name: isWin ? 'Winnings' : 'Loss', value: isWin ? formatter.formatCash(winnings) : formatter.formatCash(betAmount), inline: true },
+          { name: 'New Balance', value: formatter.formatCash(updatedUser.cash), inline: true }
+        )
+        .setTimestamp()
+        .setFooter({ text: `Payout: ${payoutMultiplier}x` });
+      
+      // Send the embed
+      await interaction.editReply({ embeds: [gameEmbed] });
+    } catch (error) {
+      console.error('Error in roulette command:', error);
+      await interaction.editReply({ content: 'There was an error playing roulette. Please try again later.' });
     }
-    
-    // Get prediction and bet
-    const prediction = interaction.options.getString('prediction').toLowerCase();
-    const betInput = interaction.options.getString('bet');
-    
-    // Validate prediction
-    if (!isValidBet(prediction)) {
-      return interaction.reply({
-        content: 'Invalid prediction. Valid bets include: red, black, odd, even, low, high, 1st, 2nd, 3rd, 1st column, 2nd column, 3rd column, or any number from 0 to 36, or 00.',
-        ephemeral: true
-      });
-    }
-    
-    // Get user data
-    const user = db.getUser(interaction.user.id, interaction.user.username);
-    
-    // Validate the bet
-    const betValidation = formatter.validateBet(betInput, user.cash);
-    if (!betValidation.valid) {
-      return interaction.reply({
-        content: betValidation.message,
-        ephemeral: true
-      });
-    }
-    
-    const betAmount = betValidation.amount;
-    
-    // Set cooldown
-    cooldowns.setCommandCooldown(user.id, 'roulette');
-    
-    // Spin the roulette wheel
-    const result = getRouletteNumber();
-    
-    // Determine if the user won
-    const isWin = isWinningBet(prediction, result);
-    
-    // Get bet type and payout multiplier
-    const betType = getBetType(prediction);
-    const payoutMultiplier = getPayoutMultiplier(betType);
-    
-    // Calculate winnings and update user data
-    let winnings = 0;
-    if (isWin) {
-      winnings = betAmount * payoutMultiplier;
-      db.addCash(user.id, winnings - betAmount); // Add winnings (minus the original bet)
-      db.updateStats(user.id, 'roulette', 'win', betAmount, winnings);
-    } else {
-      db.removeCash(user.id, betAmount); // Remove the bet amount
-      db.updateStats(user.id, 'roulette', 'loss', betAmount, 0);
-    }
-    
-    // Create game embed
-    const resultNumber = result === '00' ? 37 : parseInt(result);
-    const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-    const resultColor = result === '0' || result === '00' ? 'Green' : (redNumbers.includes(resultNumber) ? 'Red' : 'Black');
-    
-    const gameEmbed = new EmbedBuilder()
-      .setColor(isWin ? '#00ff00' : '#ff0000')
-      .setTitle('Roulette')
-      .setDescription(`The ball landed on **${result}** (${resultColor})!`)
-      .addFields(
-        { name: 'Your Bet', value: prediction, inline: true },
-        { name: 'Result', value: isWin ? 'You won!' : 'You lost!', inline: true },
-        { name: 'Bet Amount', value: formatter.formatCash(betAmount), inline: true },
-        { name: isWin ? 'Winnings' : 'Loss', value: isWin ? formatter.formatCash(winnings) : formatter.formatCash(betAmount), inline: true },
-        { name: 'New Balance', value: formatter.formatCash(user.cash), inline: true }
-      )
-      .setTimestamp()
-      .setFooter({ text: `Payout: ${payoutMultiplier}x` });
-    
-    // Send the embed
-    await interaction.reply({ embeds: [gameEmbed] });
   }
 };

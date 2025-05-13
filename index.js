@@ -6,9 +6,7 @@ const config = require('./config');
 // Create a new client instance
 const client = new Client({ 
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
+    GatewayIntentBits.Guilds
   ] 
 });
 
