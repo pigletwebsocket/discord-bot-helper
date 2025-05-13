@@ -1,0 +1,277 @@
+Rocket Gambling Bot, @Rocket Gambling Bot, rename to Discord Gambling Bot
+
+guild
+/config show
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config channel channel1? channel2? channel3? channel4? channel5?
+Options
+channel1 STRING (optional)
+A channel to use. Leave blank to allow in all channels
+channel2 STRING (optional)
+An additional channel to use (optional)
+channel3 STRING (optional)
+An additional channel to use (optional)
+channel4 STRING (optional)
+An additional channel to use (optional)
+channel5 STRING (optional)
+An additional channel to use (optional)
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config admin_ids add user
+Options
+user MENTION
+Add an admin ID
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config admin_ids delete user
+Options
+user MENTION
+Add an admin ID
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config cashmoji emoji
+Options
+emoji STRING
+The emoji to set
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config cash_name name
+Options
+name STRING
+The name to set
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config cryptomoji emoji
+Options
+emoji STRING
+The emoji to set
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config crypto_name name
+Options
+name STRING
+The name to set
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/config disable_update_messages enabled
+Options
+enabled BOOLEAN
+Whether the update messages are enabled
+Help Text
+Setup the config for your guild. You must be the guild owner or an admin added to a guild.
+
+To add and remove admins:
+
+$gc adminIds add <discordId>
+$gc adminIds delete <discordId>
+To update the other values:
+
+$gc prefix <prefixValue>
+$gc prefix delete
+adminIds - The Id of users that are allowed to modify the guild config. Does not give them any additional powers.
+
+prefix - The bot prefix to use. Prefix must be 5 characters or less.
+
+channel: The channel for Rocket to respond in. If set, it will ignore all other commands in other channels. Must be a valid channel Id.
+
+nickname: The bot nickname. Equivalent to manually setting the nickname. Must be 24 characters or less
+
+forceCommands: Whether to force the use of commands instead of reactions in your guild. [true | false]
+
+cashName: The name for the cash in your guild. Only available to donators. Must be 24 characters or less
+
+cashmoji: The emoji for the cash in your guild. Only available to donators. Must be a single emoji
+
+/updates
+Help Text
+Shows the latest updates for the bot, changed every time the bot is updated
+
+Alternatives to slash commands
+@Rocket Gambling Bot updates 
+@Rocket Gambling Bot announcements 
+@Rocket Gambling Bot announce 

@@ -1,0 +1,88 @@
+Rocket Gambling Bot, @Rocket Gambling Bot, rename to Discord Gambling Bot
+
+mining
+/craft type? amount?
+Options
+type STRING (optional)
+The type of pack to craft leave blank to see menu
+amount STRING (optional)
+The amount to craft - Use 'm' for max
+Help Text
+Craft packs to use when buying new units or research!
+
+Available packs:
+
+tech pack
+utility pack
+production pack
+Call $craft to see the items you can craft!
+
+Alternatives to slash commands
+@Rocket Gambling Bot craft [<amount> <itemId>]
+@Rocket Gambling Bot cft [<amount> <itemId>]
+
+Examples
+@Rocket Gambling Bot craft
+@Rocket Gambling Bot craft 1 tech
+@Rocket Gambling Bot craft 1 tp
+@Rocket Gambling Bot craft 1 utility pack
+/dig
+Help Text
+Dig in the mines to collect coal, ores and unprocessed materials (UM)!
+
+Alternatives to slash commands
+@Rocket Gambling Bot dig 
+@Rocket Gambling Bot d 
+/inventory
+Help Text
+Shows your mining inventory
+
+Alternatives to slash commands
+@Rocket Gambling Bot inventory 
+@Rocket Gambling Bot inv 
+@Rocket Gambling Bot i 
+
+Examples
+@Rocket Gambling Bot inventory
+@Rocket Gambling Bot inv
+@Rocket Gambling Bot i
+/mine
+Help Text
+Shows the information about your mine and the mine shop.
+
+Call $mine to view your stats
+Call $mine shop to view the mining unit shop
+Call $mine buy <number> <unitId> to buy something from the unit shop
+
+Alternatives to slash commands
+@Rocket Gambling Bot mine 
+@Rocket Gambling Bot m 
+
+Examples
+@Rocket Gambling Bot mine
+@Rocket Gambling Bot m
+/process
+Help Text
+Process all your unprocessed materials (UM) to find diamonds, emeralds, lapis and redstone!
+
+Alternatives to slash commands
+@Rocket Gambling Bot process 
+@Rocket Gambling Bot p 
+@Rocket Gambling Bot pr 
+/start_mine
+Help Text
+Start your mining career! Takes an optional name (uses your username if nothing is passed in)
+
+Call it any time to update your name.
+
+Alternatives to slash commands
+@Rocket Gambling Bot startMine 
+@Rocket Gambling Bot start 
+/upgrade miner upgrade_id? amount?
+Options
+upgrade_id STRING (optional)
+The upgrade to buy
+amount STRING (optional)
+The amount to buy - does not support `max` or `all` must be a number
+Help Text
+Upgrade your mining units
