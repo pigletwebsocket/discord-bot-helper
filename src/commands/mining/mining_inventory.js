@@ -3,8 +3,8 @@ const miningDb = require('../../utils/miningDb');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('inventory')
-    .setDescription('View your mining inventory')
+    .setName('mining_inventory')
+    .setDescription('View your mining inventory and resources')
     .addStringOption(option => 
       option.setName('category')
         .setDescription('Category of items to view')
