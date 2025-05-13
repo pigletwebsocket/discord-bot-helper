@@ -73,7 +73,7 @@ async function showGeneralHelp(interaction) {
         inline: false
       },
       { name: '⛏️ Mining Commands', value: 
-        '`start_mine`, `dig`, `process`, `craft`, `mine`, `inventory`\n' +
+        '`start_mine`, `dig`, `process`, `craft`, `mine`, `mining_inventory`\n' +
         'Commands for the mining mini-game system.',
         inline: false
       },
